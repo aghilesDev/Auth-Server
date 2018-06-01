@@ -1,0 +1,90 @@
+pragma solidity ^0.4.0;
+contract Authentication {
+    
+    address owner;
+    string _macAddress;
+    string _ipAddress;
+    address kami_sama;
+
+    function Authentication (string macAddress,string ipAddress) public{
+        
+        if (msg.sender.balance < 3) return;
+        address myAddress = this;
+        kami_sama=0xdd870fa1b7c4700f2bd7f44238821c26f7392148;//give value
+        owner=msg.sender;
+        _ipAddress=ipAddress;
+        _macAddress=macAddress;
+        //make transfer of ether
+        kami_sama.transfer(1);
+    
+    }
+    
+    
+    
+    function getInformation() view public returns(address,string,string){
+        
+        return(owner,_ipAddress,_macAddress);
+        
+    }
+    
+    
+    function setInformation( string macAddress,string ipAddress) public{
+        if(msg.sender != owner) return;
+        _ipAddress=ipAddress;
+        _macAddress=macAddress;
+        
+        
+    }
+    
+    function setOwner(address newOwner) public{
+        if(msg.sender != owner || msg.sender.balance < 1) return;
+        owner=newOwner;
+        
+    }  
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+contract Message {
+    
+    string _value;
+
+    function Message (string value) public{
+        
+        _value=value;
+        
+    }
+    
+    function getValue() view public returns(string){
+        
+        return(_value);
+        
+    }
+    
+    
+    function setInformation( string value) public{
+        
+        _value=value;
+        
+        
+    }
+    
+
+
+}
