@@ -31,34 +31,40 @@ print(w3.eth.defaultAccount)
 
 contract_source_code = '''
 pragma solidity ^0.4.0;
+contract Authentication {
 
-contract Message {
-    string _value;
+address owner;
+string ipAddress;
 
-    function Message (string value) public{
-        _value=value;
-    }
+constructor (string _ipAddress) public{
+owner=msg.sender;
+ipAddress=_ipAddress;
+}
 
-    function getValue() view public returns(string){
-        return(_value);
-    }
+function getPublicKeyUser() view public returns(address){
+return(owner);
+}
 
-    function setInformation(string value) public{
-        _value=value;
-    }
+function getIpAddressUser() view public returns(string){
+return(ipAddress);
+}
 
+function setOwner(address newOwner) public{
+if(msg.sender != owner) return;
+owner=newOwner;
+}
 }
 '''
 compiled_sol = compile_source(contract_source_code) # Compiled source code
-contract_interface = compiled_sol['<stdin>:Message']
+contract_interface = compiled_sol['<stdin>:Authentication']
 
 
 
-if w3.personal.unlockAccount(w3.eth.accounts[0], 'astabene69'):
+if w3.personal.unlockAccount(w3.eth.accounts[1], 'astabene69'):
     print("ok")
 # Instantiate and deploy contract
 contract = w3.eth.contract(abi=contract_interface['abi'], bytecode=contract_interface['bin'])
-tx_hash=contract.constructor('Hello world').transact()
+tx_hash=contract.constructor('192.168.45.208').transact()
 # Get transaction hash from deployed contract
 #tx_hash = contract.deploy(transaction={'from': w3.eth.accounts[0], 'gas': 410000})
 
@@ -73,10 +79,8 @@ print('taille: {}'.format(len(contract_address)))
 # Contract instance in concise mode
 contract_instance = w3.eth.contract(abi=contract_interface['abi'], address=contract_address)
 
-print("message: {}".format(contract_instance.functions.getValue().call()))
-tx_hash=contract_instance.functions.setInformation('Oulyééé').transact()
-tx_receipt = w3.eth.waitForTransactionReceipt(tx_hash)
-print("message: {}".format(contract_instance.functions.getValue().call()))
+print("message: {}".format(contract_instance.functions.getPublicKeyUser().call()))
+
 
 
 

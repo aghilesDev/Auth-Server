@@ -1,7 +1,8 @@
-from DBContext import DBContext as Context
-from DBModel import UserModel as User
+from .DBContext import DBContext as Context
+from .DBModel import UserModel as User
 from sqlalchemy import or_
 
+#this class allow us to the users tables with the CRUD(Create,Read,Update,Delete) paradigm
 class UserRepository:
     def __init__(   self):
         self.session=Context.getinstance().session
@@ -28,7 +29,7 @@ class UserRepository:
         if user is None:
             return None
         user.username=name
-        user.contract=contract
+        user.Contract=contract
         return user
 
 

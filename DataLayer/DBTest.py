@@ -4,14 +4,13 @@ from DBUnitOfWork import UnitOfWork
 
 
 uow=UnitOfWork()
-#uow.createTables()
+uow.createTables()
 rep=UserRepo()
-user=rep.createUser("Islam","0x5Ec6088d5D323e019495A64379A7d5059e594E32")
+user=rep.createUser("aghiles","0x2Be3e8c249cB0Eb95503F8804E2a40D7FaB53445")
 uow.commit()
-u2=rep.readUser("Aghiles")
 
 
 
 
 
-print(u2.username)
+print(user.username)

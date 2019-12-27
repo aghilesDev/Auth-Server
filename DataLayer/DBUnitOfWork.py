@@ -1,8 +1,8 @@
-from DBContext import DBContext
-from DBModel import Base
+from .DBContext import DBContext
+from .DBModel import Base
 
 
-
+#Based on the unit of work pattern ,the UnitOfWork class handle the commitment of the data in the database,th supression and the creation of tables
 class UnitOfWork:
 
     def __init__(self):

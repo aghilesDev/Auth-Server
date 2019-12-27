@@ -1,13 +1,13 @@
 pragma solidity ^0.4.0;
 contract Authentication {
-    
+
     address owner;
     string _macAddress;
     string _ipAddress;
     address kami_sama;
 
     function Authentication (string macAddress,string ipAddress) public{
-        
+
         if (msg.sender.balance < 3) return;
         address myAddress = this;
         kami_sama=0xdd870fa1b7c4700f2bd7f44238821c26f7392148;//give value
@@ -16,31 +16,31 @@ contract Authentication {
         _macAddress=macAddress;
         //make transfer of ether
         kami_sama.transfer(1);
-    
+
     }
-    
-    
-    
+
+
+
     function getInformation() view public returns(address,string,string){
-        
+
         return(owner,_ipAddress,_macAddress);
-        
+
     }
-    
-    
+
+
     function setInformation( string macAddress,string ipAddress) public{
         if(msg.sender != owner) return;
         _ipAddress=ipAddress;
         _macAddress=macAddress;
-        
-        
+
+
     }
-    
+
     function setOwner(address newOwner) public{
         if(msg.sender != owner || msg.sender.balance < 1) return;
         owner=newOwner;
-        
-    }  
+
+    }
 
 }
 
@@ -62,29 +62,39 @@ contract Authentication {
 
 
 contract Message {
-    
+
     string _value;
 
     function Message (string value) public{
-        
+
         _value=value;
-        
+
     }
-    
+
     function getValue() view public returns(string){
-        
+
         return(_value);
-        
+
     }
-    
-    
+
+
     function setInformation( string value) public{
-        
+
         _value=value;
-        
-        
+
+
     }
-    
 
 
-}
+
+
+
+
+
+
+
+
+
+
+
+{"sign" :{'r': 72491095259420601633169753306834051079257159312631578738445487036038563961865, 'signature': HexBytes('0xa04481841027c2c3ff96387579e31fb433901ef817ba2da503f72b51737f1c0940bb5de5fc9b29aadc862277da67ee07a8485f465bea412837926b260d9ebc791b'), 'v': 27, 'messageHash': HexBytes('0x0dc026128daba410dbe95f06b56e354800bea0e533fad026ef7a9f79cfb5a834'), 's': 29279070773283172784500516562276928992570112162519441902193825470952807251065},"token":"eyJhbGciOiJIUzI1NiIsImV4cCI6MTUyNzg3MzI1OCwiaWF0IjoxNTI3ODY5NjU4fQ.eyJhdXRoZW50aWZpZWQiOmZhbHNlLCJpZCI6MX0.1QviBZ9l9H0YdgtlMK2mW2VP26vIQoRxcgqx6ojE_7A"}

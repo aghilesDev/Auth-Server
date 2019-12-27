@@ -3,7 +3,7 @@ from solc import compile_source
 from web3.contract import ConciseContract
 import json
 import web3
-from BCKRepository import AuthenticationRepository
+from .BCKRepository import AuthenticationRepository
 
 
 
@@ -18,4 +18,3 @@ contract=user.readUser('Aghiles').Contract
 
 auth=AuthenticationRepository()
 print(auth.getMessage(contract))
-auth.setMessage(contract,"0x998692D7a478D2C006330ec2cAB5c0142eE804f5")

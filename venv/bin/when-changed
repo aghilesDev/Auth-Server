@@ -1,4 +1,0 @@
-#!/home/aghiles/Documents/AuthServer/venv/bin/python3
-
-from whenchanged.whenchanged import main
-main()

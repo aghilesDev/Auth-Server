@@ -1,15 +1,15 @@
-from Validator import SignatureValidator#,SignatureProvider
-from TokenGenerator import TokenGenerator
+from .Validator import SignatureValidator#,SignatureProvider
+from .TokenGenerator import TokenGenerator
 import sys
-sys.path.insert(0,'../DataLayer')
+#sys.path.insert(0,'../DataLayer')
 
-from DBRepository import UserRepository
-from BCKRepository import AuthenticationRepository as AuthRepo
-
-
+from DataLayer.DBRepository import UserRepository
+from DataLayer.BCKRepository import AuthenticationRepository as AuthRepo
 
 
 
+
+#class that handles the different step of the authentication procedure
 class AuthenticationHandler:
 
     def __init__(self,userRepo=UserRepository,signatureValidator=SignatureValidator,tokenGenerator=TokenGenerator,authRepo=AuthRepo):
@@ -25,6 +25,7 @@ class AuthenticationHandler:
         if(user is None):
             #error
             print('erreur')
+            return None
         token=self.tokenGen.generateChallengeToken(user.id)
         return token
 
@@ -40,7 +41,9 @@ class AuthenticationHandler:
         user=self.userRepo.readUserById(userid)
         if(user is None):
             return None #user n'existe pas
-        publicKey=self.authRepo.getMessage(user.Contract)
+        publicKey=self.authRepo.getPublicKeyUser(user.Contract)
+
+
         if self.signatureValidator.validate(publicKey=publicKey,token=token,signature=signature):#la chaine de caractere du token
             return self.tokenGen.generateAuthentificationToken(user.id) #l'utilisateur est authentifier on lui donne un token d'authentification
         return None #signature ne correspond pas

@@ -2,7 +2,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask import current_app
 
 
-
+#TokenGenerator is a class wich handle the generation,validation and decryptage of challange tokens and authentication tokens
 class TokenGenerator:
     def generateChallengeToken(self,id,expiration=3600):
         s = Serializer(current_app.config['SECRET_KEY'], expiration)
